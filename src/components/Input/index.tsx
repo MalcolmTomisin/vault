@@ -1,24 +1,67 @@
 
-import {TextInput, View, Text, TextInputProps, StyleSheet} from 'react-native';
+import {TextInput, View, Text, TextInputProps, StyleSheet, ViewStyle, StyleProp, TextStyle} from 'react-native';
 import {forwardRef} from 'react';
+import { colors } from '../../theme/colors';
+import { fonts } from '../../theme/fonts';
+import { normalize } from '../../utils';
 
 export type InputProps  = TextInputProps & {
     label?: string;
-    errorMessage?: string | null;
     inputStyle?: object;
-    containerStyle?: object;
-    inputContainerStyle?: object;
+    containerStyle?: ViewStyle;
+    inputContainerStyle?: ViewStyle;
     required?: boolean;
-    labelStyle?: object;
+    labelStyle?: StyleProp<TextStyle>;
     context?: 'currency';
+    middleContainerStyle?: ViewStyle;
   }
 
   const Input = forwardRef<TextInput, InputProps>((props, ref) => (
-      <View>
-          <Text></Text>
-          <View>
-              <TextInput />
-              {props.context === 'currency' && <Text>€</Text>}
+      <View style={[{width: '100%'},props.containerStyle]}>
+          <Text style={[{
+              fontSize: 13,
+              lineHeight: 17,
+              marginBottom: 5,
+              fontFamily: fonts.regular,
+          }, props.labelStyle]}>{props.label}</Text>
+          <View style={[{borderRadius: 10, overflow: 'hidden'},props.middleContainerStyle]}>
+            <View 
+                style={[{
+                    borderWidth: 2,
+                    backgroundColor: 'white', 
+                    borderRadius: 10,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    borderColor: colors.borderGrey,
+                    paddingRight: props.context ? normalize(15) : 0
+                }, 
+                    props.inputContainerStyle
+                ]}>
+                <TextInput 
+                    style={[{
+                        height: 48, 
+                        fontSize: 17, 
+                        lineHeight: 24,
+                        paddingHorizontal: normalize(15),
+                        fontFamily: fonts.regular, 
+                        color: colors.grey700},
+                        props.inputStyle
+                    ]} 
+                    value={props.value} 
+                    onFocus={props.onFocus} 
+                    onEndEditing={props.onEndEditing}
+                    placeholder={props.placeholder}
+                    placeholderTextColor={colors.mainGrey}
+                    multiline={props.multiline}
+                    keyboardType={props.keyboardType}
+                />
+                {props.context === 'currency' && <Text style={{
+                                                                color: '#6B6651', 
+                                                                fontSize: 17, 
+                                                                lineHeight: 24, 
+                                                                fontFamily: fonts.regular}}>€</Text>}
+            </View>
           </View>
       </View>
   ))
@@ -26,5 +69,7 @@ export type InputProps  = TextInputProps & {
   const styles = StyleSheet.create({
       
   })
+
+  export default Input;
 
 

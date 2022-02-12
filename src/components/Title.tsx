@@ -5,9 +5,10 @@ import AddButton from "./AddButton";
 export const Title = (props: {
   children: string;
   onButtonPress?: () => void;
+  containerStyle?: {};
 }) => {
   return (
-    <View style={styles.titleContainer}>
+    <View style={[styles.titleContainer, props.containerStyle]}>
       <Text style={styles.title}>{props.children}</Text>
       {props.onButtonPress? <AddButton onPress={props.onButtonPress} /> : null}
     </View>
