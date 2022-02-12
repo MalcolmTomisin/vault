@@ -36,6 +36,8 @@ const pickImage: () => Promise<ImagePickerResult> = async () => {
         const pickerResult = await ExpoImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
             aspect: [4, 3],
+            quality: 1,
+            base64: true,
         })
         return pickerResult
     }

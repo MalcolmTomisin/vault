@@ -14,6 +14,7 @@ export type InputProps  = TextInputProps & {
     labelStyle?: StyleProp<TextStyle>;
     context?: 'currency';
     middleContainerStyle?: ViewStyle;
+    focused?: boolean;
   }
 
   const Input = forwardRef<TextInput, InputProps>((props, ref) => (
@@ -24,7 +25,7 @@ export type InputProps  = TextInputProps & {
               marginBottom: 5,
               fontFamily: fonts.regular,
           }, props.labelStyle]}>{props.label}</Text>
-          <View style={[{borderRadius: 10, overflow: 'hidden'},props.middleContainerStyle]}>
+          <View style={[{borderRadius: 10, overflow: 'hidden'},props.focused ? {borderWidth: 4, borderColor: '#D6E3FD'} : null]}>
             <View 
                 style={[{
                     borderWidth: 2,
@@ -33,7 +34,7 @@ export type InputProps  = TextInputProps & {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    borderColor: colors.borderGrey,
+                    borderColor: props.focused ? '#2D50E6' : colors.borderGrey,
                     paddingRight: props.context ? normalize(15) : 0
                 }, 
                     props.inputContainerStyle
