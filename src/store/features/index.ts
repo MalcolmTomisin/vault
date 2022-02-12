@@ -1,0 +1,1 @@
+export {default as valuablesReducer, addNewValuable, addValuableSlice} from './addValuables';
