@@ -1,4 +1,4 @@
-import { InputAccessoryView, StyleSheet, View, KeyboardAvoidingView, ScrollView, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, View, KeyboardAvoidingView, ScrollView, Keyboard, TouchableWithoutFeedback } from "react-native";
 
 import Button from "../components/Button";
 import { RootTabScreenProps } from "../navigation/types";
@@ -7,7 +7,7 @@ import Input from "../components/Input";
 import { normalizeHeight } from "../utils";
 import GalleryIcon from "../components/Gallery";
 import { ImagePicker } from "../sdk/ImagePicker";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {addNewValuable} from '../store/features';
 import { RootState } from "../store";
@@ -17,7 +17,12 @@ import { RootState } from "../store";
 export default function AddItemScreen({
   navigation,
 }: RootTabScreenProps<"AddItemScreen">) {
-  const {valuables} = useSelector((state: RootState) => state);
+  const appState = useSelector((state: RootState) => {
+    let priceSummary = state.valuables.reduce((prev, v) => prev + v.purchasePrice, 0);
+    return {...state, priceSummary};
+  });
+  const {priceSummary, valuables} = appState;
+
   const [focusStates, setFocusStates] = useState<{name: boolean; value: boolean; description: boolean;}>({
     name: false,
     value: false,
@@ -29,28 +34,28 @@ export default function AddItemScreen({
     value: '',
     description: '',
   });
+  const [image, setImage] = useState<string>('');
 
   useEffect(() => {
     if (process.env.JEST_WORKER_ID !== undefined){
       console.log('works');
       setImage('image.jpg');
     }
-  }, [])
+  }, [image])
 
-  const [image, setImage] = useState<string>('');
+  
 
   const [allStatesValid, setValidStates] = useState<boolean>(false);
   const dispatch = useDispatch();
   
 
-  const selectImage = useCallback(async () => {
-      let imageObject = await ImagePicker.pickImage();
-      if (typeof imageObject != 'undefined' && !imageObject.cancelled){
-          await setImage(() => imageObject?.base64);
-          checkInputValues(); 
-      }
-        
-  }, []);
+  const selectImage = async () => {
+    let imageObject = await ImagePicker.pickImage();
+    if (typeof imageObject != 'undefined' && !imageObject.cancelled){
+        setImage(imageObject?.base64);
+    }
+    checkInputValues();
+  }
 
   const deleteImage = () => {
     setImage(() => '');
@@ -106,16 +111,20 @@ export default function AddItemScreen({
           }
         }
         if (values === "value"){
-          if (Number.isNaN(parseInt(inputValues[values], 10))){
+          let cast = parseInt(inputValues[values], 10);
+          if (Number.isNaN(cast) || (cast + priceSummary) > 40000){
             setValidStates(() => false);
             //console.log('here', 2, parseInt(inputValues[values], 10))
             return;
           }
         }
       }
-      if (image === '' || image == null){
+      if (image === '' && image == null){
+        console.log('image', image);
         setValidStates(() => false);
+        return;
       }
+      console.log('passed', 'here');
       setValidStates(() => true);
   }
 

@@ -29,7 +29,7 @@ export default function GalleryIcon(props: GalleryIconProps){
                             paddingBottom: normalize(37)}]}>
             
             {props.imageSource ? <View style={{overflow: 'hidden', borderRadius: 0.9 * normalize(150),}}><Image testID={props.testID} source={{uri: 'data:image/jpeg;base64,' +  props.imageSource}} style={{width: normalize(150), 
-                        height: normalizeHeight(150),}} resizeMode="cover" /></View> : <>
+                        height: normalize(150),}} resizeMode="cover" /></View> : <>
                 <FontAwesome name="camera" size={normalize(32)} color={colors.mainBlue} />
                 <Text style={{fontSize: normalize(17), lineHeight: normalize(24), fontFamily: fonts.regular, textAlign: 'center'}}>Add photo</Text>
             </>}

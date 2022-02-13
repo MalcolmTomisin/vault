@@ -47,7 +47,7 @@ export default function InventoryScreen({
               </View>
         )}
         numColumns={2}
-        ListHeaderComponent={<Title containerStyle={{paddingHorizontal: 10}} onButtonPress={handleAddButtonPress}>{route.name}</Title>} 
+        ListHeaderComponent={<Title containerStyle={{paddingHorizontal: normalize(10)}} onButtonPress={handleAddButtonPress}>{route.name}</Title>} 
         />
     </View>
   );
@@ -57,6 +57,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    paddingHorizontal: 10,
+    paddingHorizontal: normalize(10),
   }
 });
