@@ -11,10 +11,12 @@ type GalleryIconProps = PressableProps & {
 
 export default function GalleryIcon(props: GalleryIconProps){
     return(
-        <Pressable onPress={props.onPress}>
-            <View style={[{
+        <Pressable 
+            onPress={props.onPress}>
+            <View 
+            style={[{
                         width: normalize(150), 
-                        height: normalizeHeight(150), 
+                        height: normalize(150), 
                         borderStyle: 'dashed', 
                         borderRadius: 0.9 * normalize(150),
                         borderWidth: 2,
@@ -34,7 +36,7 @@ export default function GalleryIcon(props: GalleryIconProps){
             style={{
                 backgroundColor: '#D95762', 
                 position: 'absolute', 
-                height: normalizeHeight(32), 
+                height: normalize(32), 
                 width: normalize(32),
                 borderRadius: 0.9 * normalize(32),
                 justifyContent: 'center',

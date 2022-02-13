@@ -42,7 +42,7 @@ export default function InventoryScreen({
                 <Image source={{uri: item.photo}} resizeMode="cover" style={{flex: 3}} />
                 <View style={{flex: 2, paddingHorizontal: normalize(20), paddingVertical: normalizeHeight(16), justifyContent: 'space-between'}}>
                     <Text style={{fontSize: normalize(19), fontFamily: fonts.regular}}>{item.name}</Text>
-                    <Text style={{color: colors.grey700,fontSize: normalize(15) }}>{`€${item.purchasePrice}`}</Text>
+                    <Text style={{color: colors.grey700,fontSize: normalize(15) }}>{`€${item.purchasePrice.toLocaleString("en-US")}`}</Text>
                 </View>
               </View>
         )}

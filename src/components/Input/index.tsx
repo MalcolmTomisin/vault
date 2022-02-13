@@ -25,7 +25,7 @@ export type InputProps  = TextInputProps & {
               marginBottom: 5,
               fontFamily: fonts.regular,
           }, props.labelStyle]}>{props.label}</Text>
-          <View style={[{borderRadius: 10, overflow: 'hidden'},props.focused ? {borderWidth: 4, borderColor: '#D6E3FD'} : null]}>
+          <View style={[{borderRadius: 10, overflow: 'hidden'},props.focused ? {borderWidth: 4, borderColor: '#D6E3FD'} : {borderWidth: 4, borderColor: colors.background}]}>
             <View 
                 style={[{
                     borderWidth: 2,
@@ -46,7 +46,8 @@ export type InputProps  = TextInputProps & {
                         lineHeight: 24,
                         paddingHorizontal: normalize(15),
                         fontFamily: fonts.regular, 
-                        color: colors.grey700},
+                        width: props.context ? '96%' : '100%',
+                        color: colors.grey1000},
                         props.inputStyle
                     ]} 
                     value={props.value} 
@@ -56,6 +57,7 @@ export type InputProps  = TextInputProps & {
                     placeholderTextColor={colors.mainGrey}
                     multiline={props.multiline}
                     keyboardType={props.keyboardType}
+                    onChangeText={props.onChangeText}
                 />
                 {props.context === 'currency' && <Text style={{
                                                                 color: '#6B6651', 
