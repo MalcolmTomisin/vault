@@ -1,12 +1,23 @@
-import { render, fireEvent } from '@testing-library/react-native';
+import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import AddItemScreen from "../src/screens/AddItemScreen";
 import * as reactRedux from 'react-redux';
 import GalleryIcon from '../src/components/Gallery';
 
 
-test('submits valuables', () => {
+const createTestProps = (props) => ({
+  navigation: {
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+  },
+  ...props,
+});
+
+test('submits valuables', async () => {
     const useSelectorMock = jest.spyOn(reactRedux, 'useSelector');
   const useDispatchMock = jest.spyOn(reactRedux, 'useDispatch');
+
+  let props = createTestProps({});
+  
 
 
   beforeEach(() => {
@@ -18,17 +29,27 @@ test('submits valuables', () => {
   let dummyDispatch = jest.fn();
   useDispatchMock.mockReturnValue(dummyDispatch);
 
-    const {  getByTestId, getByText } = render(<AddItemScreen />);
+    const {  getByTestId, getByText } = render(<AddItemScreen {...props} />);
 
     const nameInput = getByTestId('nameInput');
     const priceInput = getByTestId('priceInput');
-    const imageView = getByText('random text mocking image');
-    console.log('img', imageView);
+    const imageView = getByTestId('imageView');
+    
     const submitBtn = getByTestId('submit-btn');
+    
 
     fireEvent.changeText(nameInput, 'Scooby');
     fireEvent.changeText(priceInput, 'zzzz');
 
+    fireEvent.press(submitBtn);
+
     expect(submitBtn).toBeDisabled();
+
+    fireEvent.changeText(priceInput, '2000');
+
+    fireEvent.press(submitBtn);
+
+    expect(submitBtn).toBeEnabled();
+
     
 })

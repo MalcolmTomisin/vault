@@ -12,7 +12,8 @@ type GalleryIconProps = PressableProps & {
 
 export default function GalleryIcon(props: GalleryIconProps){
     return(
-        <Pressable 
+        <Pressable
+        testID='galleryBtn' 
             onPress={props.onPress}>
             <View 
             style={[{

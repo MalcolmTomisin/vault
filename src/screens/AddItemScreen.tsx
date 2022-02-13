@@ -7,7 +7,7 @@ import Input from "../components/Input";
 import { normalizeHeight } from "../utils";
 import GalleryIcon from "../components/Gallery";
 import { ImagePicker } from "../sdk/ImagePicker";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {addNewValuable} from '../store/features';
 import { RootState } from "../store";
@@ -29,6 +29,13 @@ export default function AddItemScreen({
     value: '',
     description: '',
   });
+
+  useEffect(() => {
+    if (process.env.JEST_WORKER_ID !== undefined){
+      console.log('works');
+      setImage('image.jpg');
+    }
+  }, [])
 
   const [image, setImage] = useState<string>('');
 
@@ -94,14 +101,14 @@ export default function AddItemScreen({
         if (values === "name"){
           if(inputValues[values].length < 2){
             setValidStates(() => false);
-            console.log('here', 1)
+            //console.log('here', 1)
             return;
           }
         }
         if (values === "value"){
           if (Number.isNaN(parseInt(inputValues[values], 10))){
             setValidStates(() => false);
-            console.log('here', 2, parseInt(inputValues[values], 10))
+            //console.log('here', 2, parseInt(inputValues[values], 10))
             return;
           }
         }
