@@ -1,4 +1,4 @@
-import { InputAccessoryView, StyleSheet, View, ScrollView } from "react-native";
+import { InputAccessoryView, StyleSheet, View, KeyboardAvoidingView, ScrollView, Keyboard, TouchableWithoutFeedback } from "react-native";
 
 import Button from "../components/Button";
 import { RootTabScreenProps } from "../navigation/types";
@@ -126,7 +126,8 @@ export default function AddItemScreen({
 
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <KeyboardAvoidingView enabled behavior="position" style={styles.container}>
       <View style={styles.buttonsContainer}>
         <Button title="Cancel" onPress={() => navigation.goBack()} />
         <Button title="Add" disabled={!allStatesValid} onPress={addValuesToList} />
@@ -186,8 +187,10 @@ export default function AddItemScreen({
           checkInputValues();
         }}
         value={inputValues.description}  
+        returnKeyType="done"
         />
-    </ScrollView>
+    </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 }
 

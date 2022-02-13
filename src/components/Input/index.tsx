@@ -58,6 +58,7 @@ export type InputProps  = TextInputProps & {
                     multiline={props.multiline}
                     keyboardType={props.keyboardType}
                     onChangeText={props.onChangeText}
+                    returnKeyType={props.returnKeyType}
                 />
                 {props.context === 'currency' && <Text style={{
                                                                 color: '#6B6651', 
