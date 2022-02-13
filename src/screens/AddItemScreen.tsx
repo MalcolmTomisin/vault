@@ -130,7 +130,7 @@ export default function AddItemScreen({
       <KeyboardAvoidingView enabled behavior="position" style={styles.container}>
       <View style={styles.buttonsContainer}>
         <Button title="Cancel" onPress={() => navigation.goBack()} />
-        <Button title="Add" disabled={!allStatesValid} onPress={addValuesToList} />
+        <Button title="Add" testID="submit-btn" disabled={!allStatesValid} onPress={addValuesToList} />
       </View>
       <View style={{
         justifyContent: 'center', 
@@ -138,7 +138,7 @@ export default function AddItemScreen({
         paddingTop: normalizeHeight(26), 
         marginBottom: normalizeHeight(20)
         }}>
-      <GalleryIcon onPress={selectImage} imageSource={image} onDelete={deleteImage} />
+      <GalleryIcon testID="imageView" onPress={selectImage} imageSource={image} onDelete={deleteImage} />
       </View>
       
       <Input 
@@ -154,7 +154,8 @@ export default function AddItemScreen({
           checkInputValues();
         }} 
         placeholder="Bracelet"
-        value={inputValues.name} 
+        value={inputValues.name}
+        testID="nameInput" 
         />
       <Input 
         focused={focusStates.value} label="Value" 
@@ -170,7 +171,8 @@ export default function AddItemScreen({
           handleInput(text, INPUT_FLAGS.VALUE)
           checkInputValues();
         }}
-        value={inputValues.value}  
+        value={inputValues.value}
+        testID="priceInput"  
         />
       <Input 
         focused={focusStates.description} 

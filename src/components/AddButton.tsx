@@ -11,6 +11,7 @@ export default function AddButton(props: PressableProps) {
         styles.button,
       ]}
       pressRetentionOffset={10}
+      testID={props.testID}
     >
       <MaterialCommunityIcons name="plus" size={24} color="#FFFFFF" />
     </Pressable>

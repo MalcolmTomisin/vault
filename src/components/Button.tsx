@@ -4,7 +4,8 @@ import { colors } from "../theme/colors";
 export default function Button({
   title,
   onPress,
-  disabled
+  disabled,
+  testID
 }: PressableProps & { title: string }) {
   return (
     <Pressable
@@ -15,6 +16,7 @@ export default function Button({
       ]}
       pressRetentionOffset={20}
       hitSlop={20}
+      testID={testID}
     >
       <Text
         style={{ fontSize: 17, color: disabled ? colors.mainGrey : colors.mainBlue}}
